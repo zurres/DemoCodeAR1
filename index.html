@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <title>Demostración wEB APP AR</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ar.js"></script>
+    <style>
+        .info-overlay {
+            pointer-events: auto;
+            z-index: 9999;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 24px; /* Tamaño del título */
+            font-weight: bold;
+            color: #1f1f1f;
+            background-color: rgb(255, 145, 0, 0.5);
+            padding: 10px;
+            border-radius: 8px;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .info-overlay h1 {
+            font-size: 36px; /* Tamaño del título */
+            font-weight: bold; /* Peso de la tipografía */
+            color: #ff7b00; /* Color del título, en este caso dorado */
+            text-shadow: 2px 2px 4px #000000; /* Sombra para mejorar la legibilidad */
+            margin: 0; /* Remueve el margen por defecto de los h1 */
+            padding-bottom: 10px; /* Espacio por debajo del título */
+        }
+
+        .info-overlay p {
+            font-size: 16px; /* Tamaño del título */
+            font-weight:100; /* Peso de la tipografía */
+            color: #ffffff; /* Color del título, en este caso dorado */
+            
+            margin: 0; /* Remueve el margen por defecto de los h1 */
+            padding-bottom: 10px; /* Espacio por debajo del título */
+        }
+
+        
+        .info-overlay a {
+            font-size: 16px; /* Tamaño del título */
+            font-weight: bold; /* Peso de la tipografía */
+        }
+
+        #arjsDebugUIContainer {
+          display: none !important;
+        }
+    </style>
+</head>
+<body style="margin: 0px; overflow: hidden;">
+    <div class="info-overlay">DEMOSTRACIÓN DE VISUALIZADOR AR WEB
+        <p></br>Esta es una simple demostración de visualización AR compatible con browsers de escritorios, móviles y XR</p>
+        <a href="https://drive.google.com/file/d/15vypz_MqTlBN_lK6L6ap54_WsiXyNXzh/view?usp=sharing">Acá puedes acceder a las imagenes para la demo</a>
+    </div>
+    <a-scene embedded arjs='sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
+        <!-- Luz ambiental -->
+        <a-light type="ambient" color="#ffffff" intensity="0.55"></a-light>
+        
+        <!-- Luz direccional simulando el sol -->
+        <a-light type="directional" color="#ffffff" intensity="0.8" position="-1 2 1" target="#modelo"></a-light>
+        
+        <!-- Luz puntual para énfasis -->
+        <a-light type="point" color="#ffffff" intensity="0.5" position="2 4 -2" distance="10"></a-light>
+        
+
+        <!-- Identificar el Pattern de Imagen y cargar el modelo -->
+        <a-marker
+        id="animated-marker"
+        type="pattern"
+        preset="custom"
+        url="assets/marker.patt"
+        raycaster="objects: .clickable"
+        emitevents="true"
+        cursor="fuse: false; rayOrigin: mouse;"
+        id="markerA"
+    >
+            <!--<a-box position="0 0 0" rotation="0 45 0" color="#4CC3D9"></a-box>-->
+            <a-entity gltf-model="assets/Tambor_v3.glb" position="0 0.5 0" rotation="0 0 0" scale="0.1 0.1 0.1" animation="property: rotation; to: 0 360 0; loop: true; easing: linear; dur: 10000"></a-entity> 
+            <!--add a text box when the model is loaded and show it over the 3d model-->
+            <a-text value="Tambor ceremonial de machi (Kultrúng)" align="center" position="0 1 -0.5" scale="0.3 0.3 0.3" rotation="-45 0 0" color="black"></a-text>
+        </a-marker>
+        <a-entity camera></a-entity>
+    </a-scene>
+</body>
+</html>
+
+
+
